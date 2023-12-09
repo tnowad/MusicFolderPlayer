@@ -5,4 +5,7 @@
     <color name="blue">#4285F4</color>
     <color name="green">#34A853</color>
     <color name="red">#EA4335</color>
+    <color name="seekbar_background_color">#C0C0C0</color>
+    <color name="seekbar_progress_color">#A2A2A2</color>
+    <color name="seekbar_thumb_color">#ADB6E1</color>
 </resources>
