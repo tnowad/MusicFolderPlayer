@@ -60,7 +60,6 @@ public class MusicInfoFragment extends Fragment {
             throw new RuntimeException(e);
         }
 
-        // Update views with the metadata
         if (albumArt != null) {
             imgAlbumArt.setImageBitmap(albumArt);
         } else {

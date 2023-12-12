@@ -99,7 +99,6 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FileViewHolder
                 Bitmap bitmap = BitmapFactory.decodeByteArray(albumArt, 0, albumArt.length);
                 fileImage.setImageBitmap(bitmap);
             } else {
-                // If no album art, display a default music icon
                 fileImage.setImageResource(R.drawable.ic_music);
             }
 

@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     if (file.isDirectory()) {
                         currentFolder = file;
                         displayFiles(file);
-                    } else {
+                    } else if (isMusicFile(file)) {
                         playFiles(new File[]{file});
                     }
                 });
@@ -140,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isMusicFile(File file) {
+        if (file == null || file.getAbsolutePath() == null) {
+            return false;
+        }
         String fileName = file.getName();
         return fileName.endsWith(".mp3") || fileName.endsWith(".wav");
     }

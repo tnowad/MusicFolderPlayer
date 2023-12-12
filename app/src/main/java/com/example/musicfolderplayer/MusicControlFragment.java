@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class MusicControlFragment extends Fragment {
 
-    private static final int UPDATE_INTERVAL = 100; // Update interval in milliseconds
+    private static final int UPDATE_INTERVAL = 50;
     private Handler handler;
     private MusicPlayerViewModel viewModel;
     private MediaPlayerManager mediaPlayerManager;
