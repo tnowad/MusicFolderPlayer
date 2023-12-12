@@ -54,6 +54,11 @@ public class MusicControlFragment extends Fragment {
         mediaPlayerManager.mediaPlayer.setOnCompletionListener(mp -> {
             onNextButtonClick();
         });
+        if (!mediaPlayerManager.isPause()) {
+            btnPlayPause.setImageResource(R.drawable.ic_stop);
+        } else {
+            btnPlayPause.setImageResource(R.drawable.ic_play);
+        }
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(mediaPlayerManager.currentFile.getAbsolutePath());
         String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
@@ -91,8 +96,10 @@ public class MusicControlFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
+        updateSeekBar();
+        updateElapsedTime();
         updateSeekBarAndTime();
+
         return view;
     }
 
@@ -112,8 +119,10 @@ public class MusicControlFragment extends Fragment {
     private void onPlayPauseButtonClick() {
         if (mediaPlayerManager.isPause()) {
             mediaPlayerManager.play();
+            btnPlayPause.setImageResource(R.drawable.ic_stop);
         } else {
             mediaPlayerManager.pause();
+            btnPlayPause.setImageResource(R.drawable.ic_play);
         }
     }
 
