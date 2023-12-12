@@ -59,26 +59,8 @@ public class MusicControlFragment extends Fragment {
         } else {
             btnPlayPause.setImageResource(R.drawable.ic_play);
         }
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(mediaPlayerManager.currentFile.getAbsolutePath());
-        String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
 
-        byte[] albumArtBytes = retriever.getEmbeddedPicture();
-        Bitmap albumArt = (albumArtBytes != null) ? BitmapFactory.decodeByteArray(albumArtBytes, 0, albumArtBytes.length) : null;
 
-        try {
-            retriever.release();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Update views with the metadata
-        if (albumArt != null) {
-            imgAlbumArt.setImageBitmap(albumArt);
-        } else {
-            imgAlbumArt.setImageResource(R.drawable.default_album_art);
-        }
-        txtMusicName.setText(title != null ? title : "Unknown Title");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -96,11 +78,35 @@ public class MusicControlFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+        updateChangeSong();
         updateSeekBar();
         updateElapsedTime();
         updateSeekBarAndTime();
 
         return view;
+    }
+
+    private void updateChangeSong() {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(mediaPlayerManager.currentFile.getAbsolutePath());
+        String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+
+        byte[] albumArtBytes = retriever.getEmbeddedPicture();
+        Bitmap albumArt = (albumArtBytes != null) ? BitmapFactory.decodeByteArray(albumArtBytes, 0, albumArtBytes.length) : null;
+
+        try {
+            retriever.release();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (albumArt != null) {
+            imgAlbumArt.setImageBitmap(albumArt);
+        } else {
+            imgAlbumArt.setImageResource(R.drawable.default_album_art);
+        }
+        txtMusicName.setText(title != null ? title : "Unknown Title");
     }
 
     private void onPreviousButtonClick() {
@@ -112,7 +118,7 @@ public class MusicControlFragment extends Fragment {
         }
         viewModel.setCurrentFileIndex(currentFileIndex);
         mediaPlayerManager.loadFile(viewModel.getMusicFiles().get(currentFileIndex));
-
+        updateChangeSong();
         mediaPlayerManager.play();
     }
 
@@ -135,6 +141,7 @@ public class MusicControlFragment extends Fragment {
         }
         viewModel.setCurrentFileIndex(currentFileIndex);
         mediaPlayerManager.loadFile(viewModel.getMusicFiles().get(currentFileIndex));
+        updateChangeSong();
         mediaPlayerManager.play();
     }
 
