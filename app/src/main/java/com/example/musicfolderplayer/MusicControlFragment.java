@@ -53,6 +53,11 @@ public class MusicControlFragment extends Fragment {
         mediaPlayerManager = MediaPlayerManager.getInstance(view.getContext().getApplicationContext());
         mediaPlayerManager.mediaPlayer.setOnCompletionListener(mp -> {
             onNextButtonClick();
+            if (!mediaPlayerManager.isPause()) {
+                btnPlayPause.setImageResource(R.drawable.ic_stop);
+            } else {
+                btnPlayPause.setImageResource(R.drawable.ic_play);
+            }
         });
         if (!mediaPlayerManager.isPause()) {
             btnPlayPause.setImageResource(R.drawable.ic_stop);
