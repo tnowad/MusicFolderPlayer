@@ -31,7 +31,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:contentDescription="@string/play_pause_button"
-            android:src="@drawable/ic_play" />
+            android:src="@drawable/ic_stop" />
 
         <ImageButton
             android:id="@+id/btnNext"
